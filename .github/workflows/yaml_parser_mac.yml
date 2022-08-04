@@ -22,7 +22,7 @@ jobs:
         run: yq '.version' pubspec.yaml
 
       - name: modify app version
-        run: yq -i '.version="100+${{ steps.time.outputs }}"' pubspec.yaml
+        run: yq -i '.version="100+${{ steps.time.outcome }}"' pubspec.yaml
 
       - name: get app version
         run: yq '.version' pubspec.yaml
