@@ -13,7 +13,7 @@ jobs:
       
       - name: get build number
         id: time
-        run: date '+%m%d%H%M'
+        run: echo ::set-output name=number::$(date '+%m%d%H%M')
 
       - name: install yq
         run: brew install yq
@@ -22,7 +22,7 @@ jobs:
         run: yq '.version' pubspec.yaml
 
       - name: modify app version
-        run: yq -i '.version="100+${{ steps.time.outcome }}"' pubspec.yaml
+        run: yq -i '.version="100+${{ steps.time.outputs.number }}"' pubspec.yaml
 
       - name: get app version
         run: yq '.version' pubspec.yaml
