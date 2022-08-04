@@ -10,8 +10,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      - run: choco install yq
       
-      - name: yq - portable yaml processor
-        uses: mikefarah/yq@v4.27.2
-        with:
-          cmd: yq '.version' pubspec.yaml
+      - run: yq '.version' pubspec.yaml
