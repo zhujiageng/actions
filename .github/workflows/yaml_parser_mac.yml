@@ -1,0 +1,28 @@
+name: parse yaml
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      
+      - name: get build number
+        id: time
+        run: date '+%m%d%H%M'
+
+      - name: install yq
+        run: choco install yq
+      
+      - name: get app version
+        run: yq '.version' pubspec.yaml
+
+      - name: modify app version
+        run: yq -i '.version="100+${{ steps.time.outputs.stdout }}"' pubspec.yaml
+
+      - name: get app version
+        run: yq '.version' pubspec.yaml
