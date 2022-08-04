@@ -13,7 +13,7 @@ jobs:
       
       - name: get build number
         id: time
-        run: echo ::set-output name=number::$(date '+%m%d%H%M')
+        run: echo ::set-output name=number::$(date '+%Y%m%d%H%M')
 
       - name: install yq
         run: brew install yq
