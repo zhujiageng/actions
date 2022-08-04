@@ -16,7 +16,7 @@ jobs:
         run: date '+%m%d%H%M'
 
       - name: install yq
-        run: choco install yq
+        run: brew install yq
       
       - name: get app version
         run: yq '.version' pubspec.yaml
