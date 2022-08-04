@@ -10,6 +10,11 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      
+      # - run: date '+%m%d%H%M'
+      - name: get build number
+        id: time
+        run: Get-Date -format "yyyyMMdd"
 
       - name: install yq
         run: choco install yq
@@ -17,8 +22,8 @@ jobs:
       - name: get app version
         run: yq '.version' pubspec.yaml
 
-      # - run: date '+%m%d%H%M'
-      - run: Get-Date -format "yyyyMMdd"
-
       - name: modify app version
+        run: yq -i '.version="100+${{ steps.time.outputs.stdout }}"' pubspec.yaml
+
+      - name: get app version
         run: yq '.version' pubspec.yaml
