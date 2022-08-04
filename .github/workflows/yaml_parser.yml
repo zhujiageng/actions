@@ -11,6 +11,14 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - run: choco install yq
+      - name: install yq
+        run: choco install yq
       
-      - run: yq '.version' pubspec.yaml
+      - name: get app version
+        run: yq '.version' pubspec.yaml
+
+      # - run: date '+%m%d%H%M'
+      - run: Get-Date -format "yyyyMMdd"
+
+      - name: modify app version
+        run: yq '.version' pubspec.yaml
