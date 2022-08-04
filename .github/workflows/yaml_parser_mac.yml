@@ -19,10 +19,11 @@ jobs:
         run: brew install yq
       
       - name: get app version
-        run: yq '.version' pubspec.yaml
+        id: version
+        run: echo ::set-output name=version::$(yq '.version' pubspec.yaml)
 
       - name: modify app version
-        run: yq -i '.version="100+${{ steps.time.outputs.number }}"' pubspec.yaml
+        run: yq -i '.version="$(yq '.version' pubspec.yaml)+${{ steps.time.outputs.number }}"' pubspec.yaml
 
       - name: get app version
         run: yq '.version' pubspec.yaml
