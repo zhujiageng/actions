@@ -17,7 +17,7 @@ jobs:
         run: Get-Date -format "yyyyMMdd"
 
       - name: install yq
-        run: choco install yq
+        run: brew install yq
       
       - name: get app version
         run: yq '.version' pubspec.yaml
