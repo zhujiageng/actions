@@ -14,9 +14,12 @@ jobs:
       - name: install yq
         run: choco install yq
       
-      - name: modify Runner.rc
-        run: sed -i "s/1,0,0/"$(date '+%Y'),$(date '+%m%d'),$(date '+%H%M')"/g" -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" Runner.rc
-            #  sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" Runner.rc
+      - name: modify version in Runner.rc
+        run: sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" Runner.rc
+        shell: bash
+      
+      - name: modify buildNumber in Runner.rc
+        run: sed -i "s/1,0,0/"$(date '+%Y'),$(date '+%m%d'),$(date '+%H%M')"/g" Runner.rc
         shell: bash
 
       - name: check result
