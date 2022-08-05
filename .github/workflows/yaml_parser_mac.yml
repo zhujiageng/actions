@@ -23,7 +23,7 @@ jobs:
         run: echo ::set-output name=version::$(yq '.version' pubspec.yaml)
 
       - name: modify app version
-        run: yq -i '.version="$( date '+%Y%m%d%H%M' )+$( yq '.version' pubspec.yaml )"' pubspec.yaml
+        run: str="$(yq '.version' pubspec.yaml)+$(date '+%Y%m%d%H%M')" && yq -i '.version=env(str)' pubspec.yaml
 
       - name: get app version
         run: yq '.version' pubspec.yaml
