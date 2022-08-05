@@ -24,7 +24,7 @@ jobs:
 
       - name: modify app version
         #  yq -i '.version=\"3.3.3+333\"' pubspec.yaml
-        run: yq -i '.version="$($(yq '.version' pubspec.yaml)+$(Get-Date -format "yyyyMMddHHmm"))"' pubspec.yaml
+        run: yq -i '.version=\"$($(yq '.version' pubspec.yaml)+$(Get-Date -format "yyyyMMddHHmm"))\"' pubspec.yaml
 
       - name: get app version
         run: yq '.version' pubspec.yaml
