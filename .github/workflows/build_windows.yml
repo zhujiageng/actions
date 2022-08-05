@@ -15,15 +15,15 @@ jobs:
         run: choco install yq
       
       - name: modify buildNumber in Runner.rc
-        run: sed -i "s/1,0,0/"$(date '+%y'),$(date '+%m%d'),$(date '+%H%M')"/g" Runner.rc
+        run: sed -i "s/1,0,0/"$(date '+%y'),$(date '+%m%d'),$(date '+%H%M')"/g" windows/runner/Runner.rc
         shell: bash
 
       - name: modify version in Runner.rc
-        run: sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" Runner.rc
+        run: sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" windows/runner/Runner.rc
         shell: bash
 
       - name: check result
-        run: cat Runner.rc
+        run: cat windows/runner/Runner.rc
       
       - name: setup flutter
         uses: subosito/flutter-action@v2
