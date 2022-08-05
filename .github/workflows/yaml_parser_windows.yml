@@ -23,7 +23,7 @@ jobs:
         run: echo ::set-output name=version::$(yq '.version' pubspec.yaml)
 
       - name: modify app version
-        run: yq -i '.version="${{ steps.version.outputs.version }}\+${{ steps.time.outputs.number }}"' pubspec.yaml
+        run: yq -i '.version="${{ steps.version.outputs.version }} ${{ steps.time.outputs.number }}"' pubspec.yaml
 
       - name: get app version
         run: yq '.version' pubspec.yaml
