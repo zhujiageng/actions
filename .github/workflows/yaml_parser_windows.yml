@@ -16,7 +16,7 @@ jobs:
       
       - name: modify Runner.rc
         run: sed -i "s/1,0,0/"$(date '+%Y'),$(date '+%m%d'),$(date '+%H%M')"/g" Runner.rc
-        run: sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" Runner.rc
+             sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" Runner.rc
         shell: bash
 
       - name: check result
