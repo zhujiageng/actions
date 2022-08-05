@@ -1,7 +1,6 @@
 name: parse yaml - macos
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -14,16 +13,7 @@ jobs:
       - name: install yq
         run: brew install yq
       
-      - name: get app version
-        id: version
-        run: echo ::set-output name=version::$(yq '.version' pubspec.yaml)
-
-      - name: get build number
-        id: time
-        run: echo ::set-output name=number::$(date '+%y%m%d%H%M')
-
       - name: modify app version
-        # run: yq -i '.version="${{ steps.version.outputs.version }}+${{ steps.time.outputs.number }}"' pubspec.yaml
         run: yq -i ".version=\"$(yq '.version' pubspec.yaml)+$(date '+%y%m%d%H%M')\"" pubspec.yaml
 
       - name: get app version
