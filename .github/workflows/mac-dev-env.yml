@@ -1,0 +1,16 @@
+name: mac ternimal
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: install yq
+      run: brew install yq
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
