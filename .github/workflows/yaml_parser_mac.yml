@@ -14,16 +14,16 @@ jobs:
       - name: install yq
         run: brew install yq
       
-      - name: get build number
-        id: time
-        run: echo ::set-output name=number::$(date '+%m%d%H%M')
-      
       - name: get app version
         id: version
         run: echo ::set-output name=version::$(yq '.version' pubspec.yaml)
 
+      - name: get build number
+        id: time
+        run: echo ::set-output name=number::$(date '+%m%d%H%M')
+
       - name: modify app version
-        run: yq -i '.version="${{ steps.time.outputs.number }}+${{ steps.time.outputs.number }}"' pubspec.yaml
+        run: yq -i '.version="${{ steps.version.outputs.version }}+${{ steps.time.outputs.number }}"' pubspec.yaml
 
       - name: get app version
         run: yq '.version' pubspec.yaml
