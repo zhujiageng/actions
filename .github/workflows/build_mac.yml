@@ -1,0 +1,40 @@
+name: build macos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install yq
+        run: brew install yq
+      
+      - name: modify app version
+        run: yq -i ".version=\"$(yq '.version' pubspec.yaml)+$(date '+%y%m%d%H%M')\"" pubspec.yaml
+
+      - name: get app version
+        run: yq '.version' pubspec.yaml
+      
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+    
+      - name: enable flutter desktop support
+        run: flutter config --enable-macos-desktop
+
+      - name: build macos
+        run: flutter build macos
+
+      - run: cd /Users/runner/work/actions/actions/build/macos/Build/Products/Release && zip -qq -r macos.zip actions.app
+
+      - name: upload app
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos
+          path: /Users/runner/work/actions/actions/build/macos/Build/Products/Release/macos.zip
+          retention-days: 1

@@ -1,4 +1,4 @@
-name: parse yaml - windows
+name: build windows
 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -24,3 +24,21 @@ jobs:
 
       - name: check result
         run: cat Runner.rc
+      
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+  
+      - name: enable flutter desktop support
+        run: flutter config --enable-windows-desktop
+      
+      - name: build windows
+        run: flutter build windows
+
+      - name: upload app
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows
+          path: build\windows\runner\Release
+          retention-days: 1
