@@ -11,20 +11,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       
-      - name: get build number
-        id: time
-        run: echo ::set-output name=number::Get-Date -format "yyyyMMddHHmm"
-
       - name: install yq
         run: choco install yq
       
-      - name: get app version
-        id: version
-        run: echo ::set-output name=version::$(yq '.version' pubspec.yaml)
-
       - name: modify app version
-        #  yq -i '.version=\"3.3.3+333\"' pubspec.yaml
-        run: version=$(yq '.version' pubspec.yaml) number=$(Get-Date -format "yyyyMMddHHmm") str=$version+$number yq -i '.version=env(str)' pubspec.yaml
+        run: version=$(yq '.version' pubspec.yaml) number=$(date '+%Y%m%d%H%M') str=$version+$number yq -i '.version=env(str)' pubspec.yaml
         shell: bash
 
       - name: get app version
