@@ -15,7 +15,7 @@ jobs:
         run: choco install yq
       
       - name: modify buildNumber in Runner.rc
-        run: sed -i "s/1,0,0/"$(date '+%Y'),$(date '+%m%d'),$(date '+%H%M')"/g" Runner.rc
+        run: sed -i "s/1,0,0/"$(date '+%y'),$(date '+%m%d'),$(date '+%H%M')"/g" Runner.rc
         shell: bash
 
       - name: modify version in Runner.rc
