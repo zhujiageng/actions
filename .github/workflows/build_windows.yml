@@ -8,22 +8,22 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      # - name: checkout
-      #   uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
       
-      # - name: install yq
-      #   run: choco install yq
+      - name: install yq
+        run: choco install yq
       
-      # - name: modify buildNumber in Runner.rc
-      #   run: sed -i "s/1,0,0/"$(date '+%y'),$(date '+%m%d'),$(date '+%H%M')"/g" windows/runner/Runner.rc
-      #   shell: bash
+      - name: modify buildNumber in Runner.rc
+        run: sed -i "s/1,0,0/"$(date '+%y'),$(date '+%m%d'),$(date '+%H%M')"/g" windows/runner/Runner.rc
+        shell: bash
 
-      # - name: modify version in Runner.rc
-      #   run: sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" windows/runner/Runner.rc
-      #   shell: bash
+      - name: modify version in Runner.rc
+        run: sed -i "s/1.0.0/$(yq '.version' pubspec.yaml)/g" windows/runner/Runner.rc
+        shell: bash
 
-      # - name: check result
-      #   run: cat windows/runner/Runner.rc
+      - name: check result
+        run: cat windows/runner/Runner.rc
       
       - name: Setup Sentry CLI
         uses: mathieu-bour/setup-sentry-cli@1.2.0
@@ -35,20 +35,20 @@ jobs:
       - name: check sentry
         run: sentry-cli --version
       
-      # - name: setup flutter
-      #   uses: subosito/flutter-action@v2
-      #   with:
-      #     channel: 'stable'
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
   
-      # - name: enable flutter desktop support
-      #   run: flutter config --enable-windows-desktop
+      - name: enable flutter desktop support
+        run: flutter config --enable-windows-desktop
       
-      # - name: build windows
-      #   run: flutter build windows
+      - name: build windows
+        run: flutter build windows
 
-      # - name: upload app
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: windows
-      #     path: build\windows\runner\Release
-      #     retention-days: 1
+      - name: upload app
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows
+          path: build\windows\runner\Release
+          retention-days: 1
