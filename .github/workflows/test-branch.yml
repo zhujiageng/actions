@@ -8,3 +8,5 @@ jobs:
     runs-on: macos-latest
     steps:
     - run: echo alpha
+
+    - run: cat pubspec.yaml
