@@ -9,4 +9,6 @@ jobs:
     steps:
     - run: echo alpha
 
+    - uses: actions/checkout@v3
+
     - run: cat pubspec.yaml
